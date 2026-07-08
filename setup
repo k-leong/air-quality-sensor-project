@@ -118,11 +118,11 @@ cd $BASE
 echo " ───────────────────────────────────────────────────┐"
 echo "                   Upgrading PIP                     "
 echo "└─────────────────────────────────────────────────── "
-sudo -H python2.7 -m pip install --upgrade pip
+sudo -H python3.10 pip install --upgrade pip
 echo " ───────────────────────────────────────────────────┐"
 echo "            Upgrading Python's Virtualenv            "
 echo "└─────────────────────────────────────────────────── "
-sudo -H python2.7 -m pip install --upgrade virtualenv
+sudo -H python3.10 -m pip install --upgrade virtualenv
 echo " ───────────────────────────────────────────────────┐"
 echo "                Setting Up Hyperload                 "
 echo "└─────────────────────────────────────────────────── "
@@ -131,7 +131,6 @@ cd $BASE
 echo " ───────────────────────────────────────────────────┐"
 echo "                Setting Up Telemetry                 "
 echo "└─────────────────────────────────────────────────── "
-git clone --depth=1 https://github.com/kammce/Telemetry.git $TOOLDIR/Telemetry
 cd $TOOLDIR/Telemetry/ && ./setup
 cd $BASE
 echo " ───────────────────────────────────────────────────┐"

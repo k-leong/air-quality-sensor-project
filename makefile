@@ -305,9 +305,9 @@ clean:
 flash: build
 	bash -c "\
 	source $(SJBASE)/tools/Hyperload/modules/bin/activate && \
-	python2.7 $(SJBASE)/tools/Hyperload/hyperload.py -b 576000 -c 48000000 -a clocks -d $(SJDEV) $(BINARY)"
+	python3.10 $(SJBASE)/tools/Hyperload/hyperload.py -b 576000 -c 48000000 -a clocks -d $(SJDEV) $(BINARY)"
 
 telemetry:
 	@bash -c "\
 	source $(SJBASE)/tools/Telemetry/modules/bin/activate && \
-	python2.7 $(SJBASE)/tools/Telemetry/telemetry.py"
+	python3.10 $(SJBASE)/tools/Telemetry/telemetry.py"

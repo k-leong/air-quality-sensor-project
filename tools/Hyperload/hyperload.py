@@ -115,7 +115,7 @@ VALID_SERIAL_PORT_DESCRIPTIONS = [
 
 def getBoardParameters(description_string):
   # Parsing String to obtain required Board Parameters
-  board_parameters_list = description_string.replace("\n", "").split(b':')
+  board_parameters_list = description_string.replace(SPECIAL_CHAR['NextLine'], b'').split(b':')
   board_parameters_dict = {
       'Board': board_parameters_list[0],
       'BlockSize': board_parameters_list[1],
@@ -346,19 +346,19 @@ def Hyperload2(binary_file_path, clockspeed, baud, selected_animation, device):
     if state == HyperloadStates.GetSystemInfo:
       # Read the CPU Desc String
       start_of_cpu_description = port_read_byte(port)
-      if chr(start_of_cpu_description) != SPECIAL_CHAR['Dollar']:
+      if bytes(chr(start_of_cpu_description), 'utf-8') != SPECIAL_CHAR['Dollar']:
         logging.error("Failed to read CPU Description String")
         state = HyperloadStates.BailOut
       else:
         logging.debug("Reading CPU Desc String...")
 
-        board_description = SPECIAL_CHAR['Dollar'] + port.read_until(b'\n')
+        board_description = SPECIAL_CHAR['Dollar'] + port.read_until(SPECIAL_CHAR['NextLine'])
         logging.debug("CPU Description String = %s", board_description)
 
         board_parameters = getBoardParameters(board_description)
 
         # Receive OK from Hyperload
-        if chr(port_read_byte(port)) != SPECIAL_CHAR['OK']:
+        if bytes(chr(port_read_byte(port)), 'utf-8') != SPECIAL_CHAR['OK']:
           logging.error("Failed to Receive OK")
           state = HyperloadStates.BailOut
         else:
@@ -407,7 +407,7 @@ def Hyperload2(binary_file_path, clockspeed, baud, selected_animation, device):
         port_write_and_verify(port, [checksum],
                               "Failed to send Entire Data Block")
 
-        if chr(port_read_byte(port)) != SPECIAL_CHAR['OK']:
+        if bytes(chr(port_read_byte(port)), 'utf-8') != SPECIAL_CHAR['OK']:
           logging.error(
               "Failed to Receive Ack.. Retrying #%d\n" % int(current_block))
         else:
@@ -428,7 +428,7 @@ def Hyperload2(binary_file_path, clockspeed, baud, selected_animation, device):
                             "Could not send end of transfer")
       final_acknowledge = port_read_byte(port)
 
-      if chr(final_acknowledge) != SPECIAL_CHAR['STAR']:
+      if bytes(chr(final_acknowledge), 'utf-8') != SPECIAL_CHAR['STAR']:
         logging.debug(final_acknowledge)
         logging.error("Final Ack Not Received")
       else:

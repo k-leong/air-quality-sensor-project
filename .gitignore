@@ -11,7 +11,7 @@ firmware/**/cgreen-test-suite
 !firmware/Starter
 
 tools/Hyperload/modules/
-tools/Telemetry
+tools/Telemetry/modules/
 tools/gcc-arm-none-eabi-*
 
 **/.gdb_history
@@ -20,3 +20,4 @@ tools/gcc-arm-none-eabi-*
 **/env.sh
 .idea/
 firmware/**/test
+**/build/
