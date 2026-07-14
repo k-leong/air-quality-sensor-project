@@ -10,8 +10,10 @@ class i2c {
       i2c2
     };
     i2c(bus port);
-    bool read(uint8_t slave_addr);
-    void write();
+    bool init(uint32_t clock_rate);
+    bool read(uint8_t slave_addr, uint8_t* rx_data, uint32_t length);
+    bool write(uint8_t slave_addr, const uint8_t* tx_data, uint32_t length);
+    bool transfer(uint8_t slave_addr, const uint8_t* tx_data, uint32_t tx_length, uint8_t* rx_data, uint32_t rx_length);
   private:
     bus port;
 };
