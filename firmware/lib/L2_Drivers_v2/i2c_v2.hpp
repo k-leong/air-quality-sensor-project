@@ -16,4 +16,6 @@ class i2c {
     bool transfer(uint8_t slave_addr, const uint8_t* tx_data, uint32_t tx_length, uint8_t* rx_data, uint32_t rx_length);
   private:
     bus port;
+    bool start();
+    bool stop();
 };

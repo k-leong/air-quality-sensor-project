@@ -17,7 +17,7 @@ namespace ens160_registers {
 class ens160 {
   public:
     // Add any public members or methods if needed
-    ens160(i2c& i2c_bus, uint8_t slave_address = 0x53);
+    ens160(i2c& i2c_bus, uint8_t slave_address);
     bool init();
     uint8_t get_aqi();
     uint16_t get_tvoc();
