@@ -16,7 +16,6 @@ namespace ens160_registers {
 
 class ens160 {
   public:
-    // Add any public members or methods if needed
     ens160(i2c& i2c_bus, uint8_t slave_address);
     bool init();
     uint8_t get_aqi();
@@ -24,9 +23,7 @@ class ens160 {
     uint16_t get_eco2();
     uint16_t get_temperature();
     uint16_t get_humidity();
-    // bool get_air_quality(uint8_t& aqi, uint16_t& tvoc, uint16_t& eco2);
   private:
-    // Add any private members or methods if needed
     i2c& i2c_bus;
     uint8_t slave_address;
     constexpr static uint8_t normal_mode = 0x02;

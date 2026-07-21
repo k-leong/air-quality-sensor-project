@@ -18,4 +18,7 @@ class i2c {
     bus port;
     bool start();
     bool stop();
+    bool send_byte();
+    uint8_t receive_ack(bool ack);
+    LPC_I2C_TypeDef* get_port();
 };

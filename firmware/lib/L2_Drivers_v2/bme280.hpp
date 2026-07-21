@@ -22,14 +22,12 @@ namespace bme280_registers {
 
 class bme280 {
   public:
-    // Add any public members or methods if needed
     bme280(i2c& i2c_bus, uint8_t slave_address);
     bool init();
     uint32_t read_temperature();
     uint32_t read_pressure();
-    uint32_t read_humidity();
+    uint16_t read_humidity();
   private:
-    // Add any private members or methods if needed
     i2c& i2c_bus;
     uint8_t slave_address;
 };

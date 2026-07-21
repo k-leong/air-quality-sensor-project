@@ -42,11 +42,52 @@ bool i2c::transfer(uint8_t slave_addr, const uint8_t* tx_data, uint32_t tx_lengt
 bool i2c::start() {
   // Implementation for generating a start condition on the I2C bus
   // This is a placeholder implementation and should be replaced with actual hardware start code
-  return true;
+
+  get_port()->I2CONSET = (1 << 5); // Set STA bit to generate start condition
+
+  while(get_port()->I2STAT != 0x08 && get_port()->I2STAT != 0x10) {
+    // Wait for start condition to be transmitted
+  }
+  uint8_t status = get_port()->I2STAT;
+  get_port()->I2CONCLR = (1 << 5); // Clear STA bit after start condition is transmitted
+  return (status == 0x08 || status == 0x10);
 }
 
 bool i2c::stop() {
   // Implementation for generating a stop condition on the I2C bus
   // This is a placeholder implementation and should be replaced with actual hardware stop code
+  // errors
+  // 0x20 NACK -> throw error. force stop. tx
+  // 0x30 NACK -> throw error. force stop. tx
+  // 0x48 NACK -> throw error. force stop. rx
+  
+  // success
+  // 0x28 ACK -> check for more bytes then stop if no more bytes. tx
+  // 0x58 NACK -> last byte received. stop. rx
+  get_port()->I2CONSET = (1 << 4);
+  get_port()->I2CONCLR = (1 << 5); // Clear STA bit to generate stop condition
   return true;
+}
+
+bool i2c::send_byte() {
+  // Implementation for sending a byte on the I2C bus
+  // This is a placeholder implementation and should be replaced with actual hardware send code
+  return true;
+}
+
+uint8_t i2c::receive_ack(bool ack) {
+  // Implementation for receiving an acknowledgment on the I2C bus
+  // This is a placeholder implementation and should be replaced with actual hardware receive code
+  return true;
+}
+
+LPC_I2C_TypeDef* i2c::get_port() {
+  switch (i2c::port) {
+    case i2c::bus::i2c1:
+      return LPC_I2C1;
+    case i2c::bus::i2c2:
+      return LPC_I2C2;
+    default:
+      return nullptr; // Invalid port
+  }
 }
